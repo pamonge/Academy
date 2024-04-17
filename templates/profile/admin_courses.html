@@ -1,0 +1,93 @@
+<h5>Cursos</h5>
+{% if inscription_courses %}
+    <div class="alert alert-success" role="alert">
+        <h6>Cursos en etapa de Inscripción</h6>
+    </div>
+    <table class="table table-success table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nombre del curso</th>
+                <th scope="col">Profesor</th>
+                <th class="text-center" scope="col">Cant. Clases</th>
+                <th class="text-center" scope="col">Cant. Alumnos</th>
+                <th class="text-center" scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in inscription_courses %}
+                {% with enrollment_count=course.registration_set.count %}
+                    <tr>
+                        <td>{{ course.name }}</td>
+                        <td>{{ course.teacher.get_full_name }}</td>
+                        <td class="text-center">{{ course.class_quantity }}</td>
+                        <td class="text-center">{{ enrollment_count }}</td>
+                        <td class="text-center">
+                            <a class="btn btn-sm btn-warning" href="{% url 'course_edit' course.id %}">Editar</a>
+                        </td>
+                    </tr>
+                {% endwith %}
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
+{% if progress_courses %}
+    <div class="alert alert-warning" role="alert">
+        <h6>Cursos en Progreso</h6>
+    </div>
+    <table class="table table-warning table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nombre del curso</th>
+                <th scope="col">Profesor</th>
+                <th class="text-center" scope="col">Cant. Clases</th>
+                <th class="text-center" scope="col">Cant. Alumnos</th>
+                <th class="text-center" scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in progress_courses %}
+                {% with enrollment_count=course.registration_set.count %}
+                    <tr>
+                        <td>{{ course.name }}</td>
+                        <td>{{ course.teacher.get_full_name }}</td>
+                        <td class="text-center">{{ course.class_quantity }}</td>
+                        <td class="text-center">{{ enrollment_count }}</td>
+                        <td class="text-center">En Proceso</td>
+                    </tr>
+                {% endwith %}
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
+{% if finalized_courses %}
+    <div class="alert alert-danger" role="alert">
+        <h6>Cursos Finalizados</h6>
+    </div>
+    <table class="table table-danger table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nombre del curso</th>
+                <th scope="col">Profesor</th>
+                <th class="text-center" scope="col">Cant. Clases</th>
+                <th class="text-center" scope="col">Cant. Alumnos</th>
+                <th class="text-center" scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for course in finalized_courses %}
+                {% with enrollment_count=course.registration_set.count %}
+                    <tr>
+                        <td>{{ course.name }}</td>
+                        <td>{{ course.teacher.get_full_name }}</td>
+                        <td class="text-center">{{ course.class_quantity }}</td>
+                        <td class="text-center">{{ enrollment_count }}</td>
+                        <td class="text-center">Finalizado</td>
+                    </tr>
+                {% endwith %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-primary bg-primary" href="{% url 'course_create' %}">Agregar Curso</a>
+{% endif %}

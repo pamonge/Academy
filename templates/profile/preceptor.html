@@ -1,0 +1,82 @@
+<h5>Cursos Asignados</h5>
+
+<div class="card text-bg-success shadow  mt-3 mb-3">
+    <div class="card-header">Cursos</div>
+    <div class="card-body">  
+        {% if inscription_courses %}
+            <ul class="list-group">
+                {% for course in inscription_courses %}   
+                    {% with enrollment_count=course.registration_set.count %} 
+                        <li class="list-group-item list-group-item-success">
+                            {{ course.name }}
+                            <a class="btn btn-sm btn-success float-end" href="{% url 'list_attendance' course.id %}">
+                                {% if course.status == 'i' %}
+                                    Consultar listado
+                                {% endif %}
+                                <span class="badge text-bg-light rounded-pill">{{ enrollment_count }}</span>
+                            </a>
+                        </li>
+                    {% endwith %}
+                {% endfor %}
+            </ul>
+        {% else %}  
+            <div class="alert alert-bg-success" role="alert">
+                Por el momento no hay cursos en inscripción.
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card text-bg-warning shadow  mt-3 mb-3">
+    <div class="card-header">Cursos en Progreso</div>
+    <div class="card-body">  
+        {% if progress_courses %}
+            <ul class="list-group">
+                {% for course in progress_courses %}           
+                    {% with enrollment_count=course.registration_set.count %} 
+                        <li class="list-group-item list-group-item-warning">
+                            {{ course.name }}
+                            <a class="btn btn-sm btn-warning float-end" href="{% url 'list_attendance' course.id %}">
+                                {% if course.status == 'p' %}
+                                    Asistencia
+                                {% endif %}
+                                <span class="badge text-bg-light rounded-pill">{{ enrollment_count }}</span>
+                            </a>
+                        </li>
+                    {% endwith %}       
+                {% endfor %}
+            </ul>
+        {% else %}  
+            <div class="alert alert-bg-warning" role="alert">
+                Po el momento no hay cursos en progreso.
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card text-bg-danger shadow  mt-3 mb-3">
+    <div class="card-header">Cursos Finalizados</div>
+    <div class="card-body">  
+        {% if finalized_courses %}
+            <ul class="list-group">
+                {% for course in finalized_courses %}
+                    {% with enrollment_count=course.registration_set.count %} 
+                        <li class="list-group-item list-group-item-danger">
+                            {{ course.name }}
+                            <a class="btn btn-sm btn-danger float-end" href="{% url 'list_attendance' course.id %}">
+                                {% if course.status == 'f' %}
+                                    Consular Listado
+                                {% endif %}
+                                <span class="badge text-bg-light rounded-pill">{{ enrollment_count }}</span>
+                            </a>
+                        </li>
+                    {% endwith %}
+                {% endfor %}
+            </ul>
+        {% else %}  
+            <div class="alert alert-danger" role="alert">
+                Por el momento no hay cursos finalizados.
+            </div>
+        {% endif %}
+    </div>
+</div>

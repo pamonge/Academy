@@ -1,0 +1,7 @@
+
+body {
+    background-image: url('{{ url_for("static", filename="../media/user/cola-152-nocturno.jpg") }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
