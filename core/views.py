@@ -323,12 +323,12 @@ class CourseEnrollmentView (TemplateView):
 #MOSTRAR LISTA DE ALUMNOS Y NOTAS A LOS PROFESORES
 @add_group_name_to_context
 class StudentListMarkView (TemplateView):
-    template_name = 'student_list_mark.html'
+    template_name = 'student_list_mark.html'    
     
     def get_context_data (self, **kwargs):
         context = super().get_context_data(**kwargs)
         course_id = self.kwargs['course_id']
-        course = get_object_or_404 (Course, id=course_id)
+        course = get_object_or_404 (Course, id=course_id) 
         marks = Mark.objects.filter (course=course)
         
         student_data = []
